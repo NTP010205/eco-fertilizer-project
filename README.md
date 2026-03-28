@@ -29,7 +29,7 @@ docker build -t eco-api:v4 .
 docker run -d -p 3000:3000 --name backend-api eco-api:v4
 ```
 
-2. Khởi chạy Frontend
+### 2. Khởi chạy Frontend
 Mở file frontend/index.html.
 ```
 Đảm bảo biến apiUrl đang trỏ về http://localhost:3000/api/thu-gom.
