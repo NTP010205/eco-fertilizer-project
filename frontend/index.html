@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eco-Fertilizer Pro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="background-blur"></div>
+  
+  <div class="container">
+    <h2>Eco-Fertilizer Pro</h2>
+    <p>Waste Collection System</p>
+
+    <div class="form-group">
+      <label>Người phụ trách</label>
+      <select id="coordinator">
+        <option value="Bành Thị Bé Tư">Bành Thị Bé Tư (Logistics)</option>
+        <option value="Nguyễn Thành Phát">Nguyễn Thành Phát (Admin)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Khối lượng (kg)</label>
+      <input type="number" id="weight" placeholder="VD: 12">
+    </div>
+
+    <div class="form-group">
+      <label>Nguồn thu gom</label>
+      <input type="text" id="location" placeholder="VD: Nhà hàng ABC">
+    </div>
+
+    <button onclick="sendData()">🚀 Gửi lên Cloud</button>
+
+    <div id="response" class="response"></div>
+  </div>
+
+  <script>
+    async function sendData() {
+      const weight = document.getElementById('weight').value;
+      const location = document.getElementById('location').value;
+      const coordinator = document.getElementById('coordinator').value;
+      const box = document.getElementById('response');
+
+      if (!weight || !location) {
+        alert('Nhập đủ thông tin bro 😑');
+        return;
+      }
+
+      box.style.display = 'block';
+      box.innerHTML = `<div class="loading">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>`;
+
+      try {
+        const apiUrl = 'http://104.43.102.106:3000/api/thu-gom';// Thay bằng URL API thực tế
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ coordinator, weight, location })
+        });
+        const data = await response.json();
+        
+        if (response.ok) {
+          box.innerHTML = `
+            <div style="text-align: left; padding: 10px;">
+              <b style="color: var(--secondary); font-size: 1.1rem;">✅ Server Cloud xác nhận:</b><br>
+              <span style="color: #fff;">📦 Đã thu gom: ${data.data.weight}kg từ ${data.data.location}</span><br>
+              <span style="color: #ccc; font-size: 0.85rem;">Phụ trách: ${data.data.coordinator}</span><br>
+              <span style="color: #ccc; font-size: 0.85rem;">Mã giao dịch: #${data.data.id}</span>
+            </div>`;
+          document.getElementById('weight').value = '';
+          document.getElementById('location').value = '';
+        } else {
+          box.innerHTML = `<span style="color: #ff5252;">❌ Lỗi: ${data.message}</span>`;
+        }
+      } catch (error) {
+        box.innerHTML = `
+          <span style="color: #ffb74d;">
+            ⚠️ <b>Chưa kết nối Backend!</b><br>
+            (Giao diện đã sẵn sàng, chờ code API).
+          </span>`;
+      }
+    }
+  </script>
+</body>
+</html>
