@@ -35,8 +35,8 @@ Mở file frontend/index.html.
 Đảm bảo biến apiUrl đang trỏ về http://localhost:3000/api/thu-gom.
 
 Mở file index.html bằng trình duyệt (hoặc dùng Live Server extension) để sử dụng.
-
-☁️ Hướng dẫn Triển khai (Deployment) trên Azure
+```
+### ☁️ Hướng dẫn Triển khai (Deployment) trên Azure
 Hệ thống sử dụng Azure CLI để vận hành.
 
 1. Đẩy Backend lên Cloud:
@@ -49,8 +49,8 @@ az container create --resource-group EcoFertilizer_Group --name eco-api-service 
 2. Đẩy Frontend lên Azure Storage:
 cd frontend
 az storage blob upload-batch --source . --destination '$web' --account-name ecowebphat2026 --overwrite
-```
-👨‍💻 Tác giả
+
+### 👨‍💻 Tác giả
 - **Họ tên:** Nguyễn Thành Phát
 - **MSSV:** 2474802016639
 - **Lớp:** K30CNTT07 - Nhóm On Nine Could
