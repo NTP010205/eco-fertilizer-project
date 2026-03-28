@@ -38,7 +38,7 @@ Mở file index.html bằng trình duyệt (hoặc dùng Live Server extension) 
 ```
 ### ☁️ Hướng dẫn Triển khai (Deployment) trên Azure
 Hệ thống sử dụng Azure CLI để vận hành.
-
+```
 1. Đẩy Backend lên Cloud:
 # Push image lên Azure Container Registry
 docker push ecoregistryphatk30.azurecr.io/eco-api:v4
@@ -49,7 +49,7 @@ az container create --resource-group EcoFertilizer_Group --name eco-api-service 
 2. Đẩy Frontend lên Azure Storage:
 cd frontend
 az storage blob upload-batch --source . --destination '$web' --account-name ecowebphat2026 --overwrite
-
+```
 ### 👨‍💻 Tác giả
 - **Họ tên:** Nguyễn Thành Phát
 - **MSSV:** 2474802016639
