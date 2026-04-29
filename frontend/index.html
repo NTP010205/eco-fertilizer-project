@@ -16,10 +16,7 @@
 
     <div class="form-group">
       <label>Người phụ trách</label>
-      <select id="coordinator">
-        <option value="Bành Thị Bé Tư">Bành Thị Bé Tư (Logistics)</option>
-        <option value="Nguyễn Thành Phát">Nguyễn Thành Phát (Admin)</option>
-      </select>
+      <input type="text" id="coordinator" placeholder="VD: Nguyễn Thành Phát">
     </div>
 
     <div class="form-group">
@@ -44,7 +41,8 @@
       const coordinator = document.getElementById('coordinator').value;
       const box = document.getElementById('response');
 
-      if (!weight || !location) {
+      // Thêm validation: Bắt buộc phải nhập cả tên người phụ trách
+      if (!coordinator || !weight || !location) {
         alert('Nhập đủ thông tin bro 😑');
         return;
       }
@@ -57,7 +55,7 @@
       </div>`;
 
       try {
-        const apiUrl = 'http://104.43.102.106:3000/api/thu-gom';// Thay bằng URL API thực tế
+        const apiUrl = 'http://20.24.132.252:3000/api/thu-gom'; // Nhớ thay IP mới ở đây khi gọi máy chủ dậy nha
         const response = await fetch(apiUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -73,8 +71,10 @@
               <span style="color: #ccc; font-size: 0.85rem;">Phụ trách: ${data.data.coordinator}</span><br>
               <span style="color: #ccc; font-size: 0.85rem;">Mã giao dịch: #${data.data.id}</span>
             </div>`;
+          // Xóa trắng các ô sau khi gửi thành công
           document.getElementById('weight').value = '';
           document.getElementById('location').value = '';
+          document.getElementById('coordinator').value = '';
         } else {
           box.innerHTML = `<span style="color: #ff5252;">❌ Lỗi: ${data.message}</span>`;
         }

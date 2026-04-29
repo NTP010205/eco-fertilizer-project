@@ -52,7 +52,6 @@ app.get('/api/danh-sach', (req, res) => {
 
 // ==========================================
 // KHỞI ĐỘNG MÁY CHỦ (MICROSERVICE)
-// ==========================================
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Microservice API đang chạy tại http://localhost:${PORT}`);
